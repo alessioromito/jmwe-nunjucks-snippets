@@ -1,0 +1,12 @@
+{# Automatic transition triggered when all linked issues are "Done" #}
+{# This snippet is used in the "conditional execution" of a "Transition linked issue" post function #}
+
+{% set linkedSubtasks = issue | linkedIssues('relates to') %}
+{# Remove or change ('relates to') if needed, depending on your needs #}
+{% set trigger = true %}
+{% for issue in linkedSubtasks %}
+    {% if issue.fields.status.name != "Done" %}
+        {% set trigger = false %}
+    {% endif %}
+{% endfor %}
+{{ trigger }}

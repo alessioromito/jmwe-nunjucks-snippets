@@ -1,0 +1,9 @@
+{# Formatted comment that returns a list of all the issues "linked" to the current one#}
+
+QA *failed* on the following issues:
+{% set linkedSubtasks = issue | linkedIssues('is blocked by') %} 
+{# Remove or change ('is blocked by') if needed, depending on your needs #}
+{% for issue in linkedSubtasks %}
+	{{ issue.key }} - *{{ issue.fields.summary }}* - [~{{ issue.fields.assignee.name }}]
+	{# Returns the Issue Key, its summary and tags the current assignee for notification #}
+{% endfor %}
